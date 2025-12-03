@@ -23,7 +23,9 @@ tests:
 
 ## Prompt
 
-/sp.constitution # Project Constitution: Physical AI & Humanoid Robotics Textbook
+/sp.constitution # Establish Project Constitution
+
+**Objective**: Formalize the foundational principles of the "RoboLearn Handbook" project into a `constitution.md` document. This constitution will define the project's core laws regarding technology stack, design system, content structure, and future architecture, serving as the guiding document for all subsequent development.
 
 1. **Project Definition**:
    - **Title**: "RoboLearn: Physical AI & Humanoid Robotics".

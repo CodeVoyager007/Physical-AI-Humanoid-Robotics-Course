@@ -26,9 +26,9 @@ tests:
 
 ## Prompt
 
-/sp.implement # UI OVERHAUL: High-Fidelity "RoboLearn" Theme
+/sp.implement # REFACTOR: Align UI with "Neo-Tech" Design System
 
-**Objective**: Completely rewrite the styling and landing page to match a high-end production standard. The current UI is too flat. We need animations, depth, and transitions.
+**Objective**: Execute a UI refactoring phase to implement the high-fidelity "Neo-Tech" Design System. This involves a complete overhaul of the CSS and landing page to introduce advanced animations, glassmorphism, and a professional, "expensive" aesthetic as defined in the project's visual identity specification.
 
 ## 1. CSS Overhaul (`src/css/custom.css`)
 Rewrite the entire CSS file. Do NOT use the default Docusaurus styles. Implement:

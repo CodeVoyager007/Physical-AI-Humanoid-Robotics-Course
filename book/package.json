@@ -7,6 +7,7 @@
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
+    "deploy:init": "gh-pages -d build -r https://github.com/CodeVoyager007/BOOK-WITH-RAGCHATBOT.git",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.0.0",
     "@tsconfig/docusaurus": "^2.0.2",
+    "gh-pages": "^6.3.0",
     "typescript": "^5.2.2"
   },
   "browserslist": {

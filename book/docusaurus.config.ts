@@ -6,8 +6,17 @@ const config: Config = {
   tagline: 'Engineering Physical AI',
   favicon: 'img/logo.png',
 
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  // Set the production url of your site here
+  url: 'https://CodeVoyager007.github.io',
+  // Set the /<baseUrl>/ pathname under which your site is served
+  // For GitHub pages deployment, it is often '/<projectName>/'
+  baseUrl: '/BOOK-WITH-RAGCHATBOT/',
+
+  // GitHub pages deployment config.
+  organizationName: 'CodeVoyager007',
+  projectName: 'BOOK-WITH-RAGCHATBOT',
+  deploymentBranch: 'gh-pages',
+  trailingSlash: false,
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -24,7 +33,7 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           editUrl:
-            'https://github.com/your-repo/your-book/tree/main/', // Placeholder
+            'https://github.com/CodeVoyager007/BOOK-WITH-RAGCHATBOT/tree/main/book/',
         },
         blog: false,
         theme: {
@@ -51,7 +60,7 @@ const config: Config = {
             label: 'Handbook',
           },
           {
-            href: 'https://github.com/your-repo/your-book', // Placeholder
+            href: 'https://github.com/CodeVoyager007/BOOK-WITH-RAGCHATBOT',
             label: 'GitHub',
             position: 'right',
           },

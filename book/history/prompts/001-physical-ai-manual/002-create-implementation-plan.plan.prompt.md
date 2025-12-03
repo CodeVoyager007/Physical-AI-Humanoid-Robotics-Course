@@ -26,7 +26,9 @@ tests:
 
 ## Prompt
 
-/sp.plan # Technical Implementation Plan: RoboLearn (Physical AI Handbook)
+/sp.plan # Generate Technical Implementation Plan
+
+**Objective**: Translate the approved feature specification for the "RoboLearn Handbook" into a comprehensive technical implementation plan. This includes defining the project structure, technology stack, and key implementation phases, in accordance with the Spec-Driven Development (SDD) process.
 
 ## 1. Project Initialization (TypeScript First)
 - **Goal**: Initialize a Docusaurus project *manually* to ensure strict TypeScript compliance from line one.
