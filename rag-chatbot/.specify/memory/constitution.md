@@ -1,39 +1,49 @@
 <!--
-Sync Impact Report:
-- Version change: 1.0.0 -> 1.1.0
+---
+Sync Impact Report
+---
+- Version change: 1.0.0 → 1.1.0
 - Modified principles:
-  - [PRINCIPLE_1_NAME] -> Tech Stack
-  - [PRINCIPLE_2_NAME] -> Architecture
-  - [PRINCIPLE_3_NAME] -> API Contract
+  - Tech Stack Laws (New)
+  - LLM Standards (New)
+  - Architecture (New)
 - Added sections: None
-- Removed sections: Principles 4, 5, 6 and Sections 2, 3
+- Removed sections: None
 - Templates requiring updates:
   - ✅ .specify/templates/plan-template.md
   - ✅ .specify/templates/spec-template.md
   - ✅ .specify/templates/tasks-template.md
 - Follow-up TODOs: None
 -->
-# Chatbot Constitution: Agentic RAG System
 
-## Core Principles
+# Project Constitution: Agentic RAG Backend 
 
-### 1. Tech Stack
-- **Framework**: FastAPI (Python 3.12+).
-- **AI SDK**: `openai-agents-sdk` (Python).
-- **Vector DB**: `qdrant-client` (Qdrant Cloud).
-- **LLM**: `AsyncOpenAI` client configured for **Google Gemini** (`base_url="https://generativelanguage.googleapis.com/v1beta/openai/"`, model=`gemini-1.5-flash`).
+## 1. Governance
 
-### 2. Architecture
-- **Agentic Pattern**: Use the "Agent" and "Tool" primitives from the SDK.
-- **Skills**: Logic must be encapsulated in reusable "Skills" (Classes) for Ingestion, Retrieval, and Personalization.
+- **Constitution Version**: 1.1.0
+- **Ratification Date**: 2025-12-07
+- **Last Amended Date**: 2025-12-07
+- **Amendment Process**: Changes to this constitution must be proposed via a pull request and approved by the project owner.
+- **Versioning Policy**: This constitution follows semantic versioning.
+- **Compliance**: All code must adhere to the principles outlined in this constitution.
 
-### 3. API Contract
-- `POST /ingest`: Scans the local `../book/docs` folder and indexes it.
-- `POST /chat`: Standard RAG chat.
-- `POST /context-chat`: Accepts `{ selection, message }` for the "Select-to-Ask" feature.
+## 2. Principles
 
-## Governance
+### Principle 1: Tech Stack Laws
 
-This Constitution is the single source of truth for project-wide principles. All development, tooling, and architectural decisions must align with it. Amendments require a documented proposal, review by the core team, and a version bump following semantic versioning rules.
+- **Runtime**: Python 3.12+ using `uv` for package management.
+- **Framework**: FastAPI (`main.py`) served by Uvicorn.
+- **AI Core**: `openai-agents-sdk` and `openai-chatkit` for orchestration.
+- **Database**: `qdrant-client` (Vector DB).
 
-**Version**: 1.1.0 | **Ratified**: 2025-12-03 | **Last Amended**: 2025-12-03
+### Principle 2: LLM Standards
+
+- **Provider**: Google Gemini 1.5 Flash.
+- **Adapter**: Clients must use `AsyncOpenAI` with `base_url="https://generativelanguage.googleapis.com/v1beta/openai/"`.
+- **Embeddings**: `text-embedding-004` via Gemini.
+
+### Principle 3: Architecture
+
+- **Pattern**: Modular architecture (`database.py`, `rag_service.py`, `ingest_local.py`).
+- **Ingestion**: Local file scanning of the sibling `../book/docs` directory.
+- **Context-Awareness**: The API must support `/context-chat` for handling user text selections.

@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl'; // Import useBaseUrl
 import styles from './index.module.css';
 import { useIsVisible } from '../theme/useIntersectionObserver';
 
 function HomepageHeader() {
+  const videoSrc = useBaseUrl('/Futuristic_Robot_Face_Video_Generated.mp4');
   return (
     <header className={styles.heroBanner}>
       <div className={styles.heroGlow}></div>
@@ -26,7 +28,14 @@ function HomepageHeader() {
             </div>
           </div>
           <div className={`col col--5 ${styles.heroImageContainer}`}>
-            <img src="/img/logo.png" alt="RoboLearn Mascot" className={styles.floatingElement} />
+            <video 
+              src={videoSrc} 
+              autoPlay 
+              muted 
+              loop 
+              playsInline 
+              className={styles.floatingElement} 
+            />
           </div>
         </div>
       </div>
