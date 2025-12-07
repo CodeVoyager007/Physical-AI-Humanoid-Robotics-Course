@@ -14,7 +14,7 @@ const config: Config = {
 
   // GitHub pages deployment config.
   organizationName: 'CodeVoyager007',
-  projectName: 'BOOK-WITH-RAGCHATBOT',
+  projectName: 'Physical-AI-Humanoid-Robotics-Course',
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
 
@@ -33,7 +33,7 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           editUrl:
-            'https://github.com/CodeVoyager007/BOOK-WITH-RAGCHATBOT/tree/main/book/',
+            'https://github.com/CodeVoyager007/Physical-AI-Humanoid-Robotics-Course/tree/main/book',
         },
         blog: false,
         theme: {
@@ -60,7 +60,7 @@ const config: Config = {
             label: 'Handbook',
           },
           {
-            href: 'https://github.com/CodeVoyager007/BOOK-WITH-RAGCHATBOT',
+            href: 'https://github.com/CodeVoyager007/Physical-AI-Humanoid-Robotics-Course',
             label: 'GitHub',
             position: 'right',
           },
