@@ -1,0 +1,130 @@
+/**
+ * RoboLearn: High-Fidelity "Purplish Neon" Theme - FINAL
+ */
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(192, 132, 252, 0.4), 0 0 30px rgba(236, 72, 153, 0.3); }
+  50% { box-shadow: 0 0 35px rgba(192, 132, 252, 0.6), 0 0 45px rgba(236, 72, 153, 0.5); }
+}
+
+:root {
+  --background-color: #0b0e14;
+  --surface-color: #151923;
+  --dot-color: rgba(168, 85, 247, 0.08);
+  --gradient-start: #a855f7; /* Purple */
+  --gradient-end: #ec4899;   /* Pink */
+  --glow-color: #c084fc;    /* Lighter Purple */
+
+  --ifm-color-primary: var(--gradient-start);
+  --ifm-font-family-base: 'Inter', 'SF Pro Display', system-ui, sans-serif;
+  --ifm-font-size-base: 18px;
+  --ifm-font-color-base: #e2e8f0;
+  --ifm-line-height-base: 1.8;
+
+  /* Force all default backgrounds to be transparent */
+  --ifm-background-color: transparent;
+  --ifm-background-surface-color: transparent;
+  --ifm-hero-background-color: transparent;
+  --ifm-code-background: rgba(21, 25, 35, 0.5);
+}
+
+html, body {
+  background-color: var(--background-color);
+  background-image:
+    /* Top radial glow, positioned and fixed */
+    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(168, 85, 247, 0.25), transparent),
+    /* Dot pattern */
+    radial-gradient(var(--dot-color) 2px, transparent 0);
+  background-size: 100% 100%, 40px 40px;
+  background-attachment: fixed;
+  background-repeat: no-repeat, repeat;
+}
+
+/* Ensure ALL main wrappers are transparent */
+.main-wrapper,
+div[class^="docPage_"],
+div[class^="docsWrapper_"],
+main[class^="docMainContainer_"],
+div[class^="docItemContainer_"] {
+    background: transparent !important;
+}
+
+/* Add a backdrop to the doc content area for readability against the background */
+div[class*="docItemContainer_"] {
+  background-color: rgba(11, 14, 20, 0.6);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(168, 85, 247, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+/* Navbar & Sidebar */
+.navbar {
+  background: rgba(11, 14, 20, 0.7) !important;
+  backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+  z-index: 10;
+}
+
+.theme-doc-sidebar-container {
+  background: transparent !important;
+  border-right: none !important;
+  z-index: 5;
+}
+
+.menu__link--active {
+  background: var(--surface-color) !important;
+  color: #fff !important;
+  box-shadow: 0 0 20px var(--glow-color);
+}
+
+/* Card Styling (for homepage) */
+.card-wrapper {
+  padding: 1px;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  border-radius: 9px;
+  transition: all 0.3s ease-in-out;
+}
+
+.card-wrapper:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(11, 14, 20, 0.4), 0 0 30px var(--gradient-start);
+}
+
+.card {
+  background-color: var(--surface-color);
+  border: none;
+  border-radius: 8px;
+  height: 100%;
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+/* Scroll Animation */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -1,0 +1,84 @@
+.toolbar {
+  background: rgba(15, 23, 42, 0.7); /* Deep Navy with transparency */
+  border-radius: 10px;
+  border: 1px solid rgba(124, 58, 237, 0.4); /* Electric Purple border */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.button {
+  background: linear-gradient(45deg, #7c3aed, #a78bfa); /* Electric Purple gradient */
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 5px;
+}
+
+.button:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.6);
+}
+
+.button:disabled {
+  background: rgba(124, 58, 237, 0.3);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001; /* Higher than modal */
+}
+
+.personalizedContent {
+  background: rgba(15, 23, 42, 0.9); /* Deep Navy */
+  border-radius: 15px;
+  border: 1px solid #7c3aed; /* Electric Purple */
+  padding: 30px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  color: #e0e0e0;
+  position: relative;
+}
+
+.translatedContentContainer {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: 10px;
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  color: #e0e0e0;
+  white-space: pre-wrap; /* Preserve whitespace and wrap text */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+.translatedContentPre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+

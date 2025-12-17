@@ -1,0 +1,84 @@
+openapi: 3.0.0
+info:
+  title: Hackathon Bonus Pack API (Revised)
+  version: 1.0.0
+paths:
+  /personalize:
+    post:
+      summary: Personalize chapter content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                software_background:
+                  type: string
+                hardware_background:
+                  type: string
+      responses:
+        '200':
+          description: A personalized version of the chapter text.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  personalized_text:
+                    type: string
+  /translate:
+    post:
+      summary: Translate chapter content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                target_lang:
+                  type: string
+                  default: "urdu"
+      responses:
+        '200':
+          description: A translated version of the chapter text.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  translated_text:
+                    type: string
+  /chat:
+    post:
+      summary: Get a customized chatbot response
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                context:
+                  type: string
+                software_background:
+                  type: string
+                hardware_background:
+                  type: string
+      responses:
+        '200':
+          description: A customized chatbot response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer:
+                    type: string

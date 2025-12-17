@@ -1,0 +1,59 @@
+.heroBanner {
+  padding: 8rem 0;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent; /* Background is now global */
+}
+
+.heroTextContainer {
+  z-index: 1;
+  animation: fade-in-up 0.8s ease-out;
+}
+
+.heroTitle {
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  color: #9ca3af;
+  max-width: 80%;
+}
+
+.buttons {
+  margin-top: 2rem;
+}
+
+.glowingButton {
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+  border: none;
+  border-radius: 9999px;
+  padding: 1rem 2.5rem;
+  font-weight: bold;
+  animation: glow-pulse 3s infinite;
+}
+
+.glowingButton:hover {
+  transform: scale(1.05);
+  animation-play-state: paused;
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.8);
+}
+
+.heroImageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floatingElement {
+  animation: float 6s ease-in-out infinite;
+  max-width: 100%;
+  height: auto;
+}
+
+.features {
+  padding: 4rem 0;
+}
