@@ -21,7 +21,7 @@ app = FastAPI(lifespan=lifespan)
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Docusaurus default port
+    allow_origins=["*", "https://physical-ai-humanoid-robotics-cours-six.vercel.app"],  # Or specify your Vercel domain, add this https://physical-ai-humanoid-robotics-cours-six.vercel.app/
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
