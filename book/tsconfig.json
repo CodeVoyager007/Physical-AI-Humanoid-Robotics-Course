@@ -1,0 +1,14 @@
+{
+  "extends": "@tsconfig/docusaurus/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "strict": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/custom.d.ts", "src/**/*.tsx", "src/**/*.ts", "docusaurus.config.ts"],
+  "exclude": ["node_modules"]
+}
