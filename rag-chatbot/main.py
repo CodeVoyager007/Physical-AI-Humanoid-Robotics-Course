@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from contextlib import asynccontextmanager
 from database import init_db
 from rag_service import rag_service
-from ingest_local import ingest_local_docs
+from ingest import ingest_local_docs
 from typing import Optional
 
 from src.skills.personalize import PersonalizationSkill
