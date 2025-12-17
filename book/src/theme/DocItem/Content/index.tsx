@@ -5,6 +5,7 @@ import {useDoc} from '@docusaurus/plugin-content-docs/client';
 import Heading from '@theme/Heading';
 import MDXContent from '@theme/MDXContent';
 import type {Props} from '@theme/DocItem/Content';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import ChapterToolbar from '../../../components/ChapterToolbar'; // Import ChapterToolbar
 
 /**
@@ -31,7 +32,9 @@ export default function DocItemContent({children}: Props): ReactNode {
   const syntheticTitle = useSyntheticTitle();
   return (
     <>
-      <ChapterToolbar /> {/* Moved outside the markdown div */}
+      <BrowserOnly>
+        {() => <ChapterToolbar />}
+      </BrowserOnly>
       <div className={clsx(ThemeClassNames.docs.docMarkdown, 'markdown')}>
         {syntheticTitle && (
           <header>
