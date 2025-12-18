@@ -97,7 +97,7 @@ export default function ChatWidget(): JSX.Element {
     setInput('');
 
     try {
-      const response = await fetch('http://localhost:8000/chat', {
+      const response = await fetch('https://physical-ai-humanoid-robotics-course-1-b9c1.onrender.com/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
