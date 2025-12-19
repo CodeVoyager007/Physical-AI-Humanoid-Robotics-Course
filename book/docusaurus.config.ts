@@ -64,6 +64,11 @@ const config: Config = {
             label: 'GitHub',
             position: 'right',
           },
+          {
+            to: '/docs/about-the-author',
+            label: 'About the Author',
+            position: 'right',
+          },
         ],
       },
       footer: {
