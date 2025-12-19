@@ -31,6 +31,8 @@ const ChapterToolbar: React.FC = () => {
     }
   }, [window.location.pathname]); // Dependency on pathname for page changes
 
+const API_BASE_URL = process.env.DOCUSAURUS_TRANSLATE_API_URL || 'http://localhost:8000';
+
   const handlePersonalize = async () => {
     setIsLoading(true);
     setPersonalizedContent(null);
@@ -42,7 +44,7 @@ const ChapterToolbar: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/personalize', {
+      const response = await fetch(`${API_BASE_URL}/personalize`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -92,7 +94,7 @@ const ChapterToolbar: React.FC = () => {
     const textToTranslate = mdxContent.innerText; 
 
     try {
-      const response = await fetch('http://localhost:8000/translate', {
+      const response = await fetch(`${API_BASE_URL}/translate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: textToTranslate }),
