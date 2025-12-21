@@ -118,7 +118,7 @@ export default function ChatWidget(): JSX.Element {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          query: currentQuery || "Context provided", # Send a default query if input is empty but context exists
+          query: currentQuery || "Context provided", // Send a default query if input is empty but context exists
           context: currentContext, // Send selected text as context
           software_background: softwareBackground,
           hardware_background: hardwareBackground,
