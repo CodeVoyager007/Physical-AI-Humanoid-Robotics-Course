@@ -51,6 +51,7 @@ export default function ChatWidget(): JSX.Element {
     const handleAskAi = (event) => {
       setIsOpen(true);
       setSelectedContext(event.detail); // Populate selectedContext with selected text
+      setInput(''); // Ensure input is clear so it doesn't look like it's in the input field
       inputRef.current?.focus();
     };
 
@@ -70,11 +71,11 @@ export default function ChatWidget(): JSX.Element {
   }, [isOpen]);
 
   // Handle input changes
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && e.ctrlKey) {
       e.preventDefault();
       const { selectionStart, selectionEnd, value } = e.currentTarget;
@@ -97,31 +98,18 @@ export default function ChatWidget(): JSX.Element {
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!input.trim() && !selectedContext) return; // Allow submit if there is context, even if input is empty? Or require input? Let's assume input is required or at least one.
-
-    // If only context is present, maybe treat it as the query? 
-    // Usually, users select text and then ask "Explain this". 
-    // So let's require input for now, or use context as input if input is empty? 
-    // The user said "appear as attachment", implying they will write a message ABOUT it.
-    // So if input is empty, we probably shouldn't submit, or we can submit with just context?
-    // Let's stick to requiring input for the question.
-    if (!input.trim()) return;
+    // Allow submit if there is context, even if input is empty.
+    if (!input.trim() && !selectedContext) return;
 
     const userMessage: Message = { 
       text: input, 
       sender: 'user',
-      // Optionally show the context in the user message too?
-      // For now, let's just send it. 
-      // If we want to mimic ChatGPT, the attachment appears in the input area, 
-      // and when sent, it appears as part of the message or an attachment to it.
-      // Let's verify if we want to show it in the chat history.
-      // The user just said "appear like when happens on chatgpt", which implies it is visible in the chat history too.
-      // We can use the same attachment structure we added for the bot!
       attachments: selectedContext ? [{ filename: 'Selected Context', content: selectedContext }] : undefined
     };
 
     setMessages((prev) => [...prev, userMessage, { text: '', sender: 'bot', isTyping: true }]);
     const currentContext = selectedContext; // Capture current context
+    const currentQuery = input;
     setInput('');
     setSelectedContext(null); // Clear context after sending
 
@@ -130,7 +118,7 @@ export default function ChatWidget(): JSX.Element {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          query: input,
+          query: currentQuery || "Context provided", # Send a default query if input is empty but context exists
           context: currentContext, // Send selected text as context
           software_background: softwareBackground,
           hardware_background: hardwareBackground,
@@ -236,7 +224,6 @@ export default function ChatWidget(): JSX.Element {
             {selectedContext && (
               <div className={styles.inputContext}>
                 <div className={styles.inputContextText} title={selectedContext}>
-                  <span style={{ marginRight: '6px' }}>📎</span>
                   {selectedContext}
                 </div>
                 <button 
@@ -254,7 +241,7 @@ export default function ChatWidget(): JSX.Element {
                 ref={inputRef}
                 rows={1}
                 className={styles.inputField}
-                placeholder="Ask me anything..."
+                placeholder={selectedContext ? "Ask about the context..." : "Ask me anything..."}
                 value={input}
                 onInput={handleInputChange} // Use onInput for textarea
                 onKeyDown={handleKeyDown} // Add onKeyDown handler

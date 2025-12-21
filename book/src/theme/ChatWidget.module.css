@@ -214,16 +214,16 @@
 }
 
 .inputContext {
-  background-color: rgba(168, 85, 247, 0.1);
-  border: 1px solid rgba(168, 85, 247, 0.3);
-  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05); /* Transparent/Grayish background */
+  border-left: 3px solid #a855f7; /* Purple accent on left */
+  border-radius: 4px; /* Slightly rounded */
   padding: 8px 12px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  font-size: 0.85rem;
-  color: var(--ifm-font-color-base, #e2e8f0);
+  font-size: 0.8rem;
+  color: rgba(226, 232, 240, 0.8); /* Muted text color */
   animation: fadeIn 0.2s ease-out;
 }
 
