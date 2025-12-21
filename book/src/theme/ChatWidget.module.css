@@ -201,10 +201,54 @@
 /* Input Form */
 .inputForm {
   display: flex;
-  align-items: center;
+  flex-direction: column; /* Changed to column to stack attachment and input */
   padding: 15px 20px;
   border-top: 1px solid rgba(168, 85, 247, 0.2);
   background-color: rgba(11, 14, 20, 0.5);
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.inputContext {
+  background-color: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 0.85rem;
+  color: var(--ifm-font-color-base, #e2e8f0);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.inputContextText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 10px;
+  max-width: 300px;
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.removeContextButton {
+  background: none;
+  border: none;
+  color: rgba(226, 232, 240, 0.6);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0 4px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.removeContextButton:hover {
+  color: #ec4899;
 }
 
 .inputField {
@@ -258,4 +302,42 @@
 .visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Attachment Styles */
+.attachmentsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  border-top: 1px solid rgba(168, 85, 247, 0.2);
+  padding-top: 8px;
+}
+
+.attachmentItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  cursor: help;
+  transition: background-color 0.2s ease;
+}
+
+.attachmentItem:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.attachmentIcon {
+  font-size: 1rem;
+}
+
+.attachmentName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  color: rgba(226, 232, 240, 0.9);
 }

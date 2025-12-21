@@ -3,10 +3,16 @@ import styles from './ChatWidget.module.css';
 import { useIsVisible } from './useIntersectionObserver'; // Corrected import for named export
 
 // Define a type for individual messages
+type Attachment = {
+  filename: string;
+  content: string;
+};
+
 type Message = {
   text: string;
   sender: 'user' | 'bot';
   isTyping?: boolean;
+  attachments?: Attachment[];
 };
 
 // SVG Icon for the send button
@@ -21,6 +27,7 @@ export default function ChatWidget(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
+  const [selectedContext, setSelectedContext] = useState<string | null>(null); // New state for selected context
   const [softwareBackground, setSoftwareBackground] = useState('Beginner'); // New state
   const [hardwareBackground, setHardwareBackground] = useState('None');     // New state
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -43,7 +50,7 @@ export default function ChatWidget(): JSX.Element {
   useEffect(() => {
     const handleAskAi = (event) => {
       setIsOpen(true);
-      setInput(event.detail); // Populate input with selected text
+      setSelectedContext(event.detail); // Populate selectedContext with selected text
       inputRef.current?.focus();
     };
 
@@ -90,11 +97,33 @@ export default function ChatWidget(): JSX.Element {
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!input.trim() && !selectedContext) return; // Allow submit if there is context, even if input is empty? Or require input? Let's assume input is required or at least one.
+
+    // If only context is present, maybe treat it as the query? 
+    // Usually, users select text and then ask "Explain this". 
+    // So let's require input for now, or use context as input if input is empty? 
+    // The user said "appear as attachment", implying they will write a message ABOUT it.
+    // So if input is empty, we probably shouldn't submit, or we can submit with just context?
+    // Let's stick to requiring input for the question.
     if (!input.trim()) return;
 
-    const userMessage: Message = { text: input, sender: 'user' };
+    const userMessage: Message = { 
+      text: input, 
+      sender: 'user',
+      // Optionally show the context in the user message too?
+      // For now, let's just send it. 
+      // If we want to mimic ChatGPT, the attachment appears in the input area, 
+      // and when sent, it appears as part of the message or an attachment to it.
+      // Let's verify if we want to show it in the chat history.
+      // The user just said "appear like when happens on chatgpt", which implies it is visible in the chat history too.
+      // We can use the same attachment structure we added for the bot!
+      attachments: selectedContext ? [{ filename: 'Selected Context', content: selectedContext }] : undefined
+    };
+
     setMessages((prev) => [...prev, userMessage, { text: '', sender: 'bot', isTyping: true }]);
+    const currentContext = selectedContext; // Capture current context
     setInput('');
+    setSelectedContext(null); // Clear context after sending
 
     try {
       const response = await fetch('https://physical-ai-humanoid-robotics-course-1-b9c1.onrender.com/chat', {
@@ -102,15 +131,20 @@ export default function ChatWidget(): JSX.Element {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           query: input,
-          software_background: softwareBackground, // Send software background
-          hardware_background: hardwareBackground, // Send hardware background
+          context: currentContext, // Send selected text as context
+          software_background: softwareBackground,
+          hardware_background: hardwareBackground,
         }),
       });
 
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       
       const data = await response.json();
-      const botMessage: Message = { text: data.answer, sender: 'bot' }; // Changed from data.response to data.answer based on backend
+      const botMessage: Message = { 
+        text: data.answer, 
+        sender: 'bot',
+        attachments: data.attachments // Add attachments from response
+      };
       setMessages((prev) => [...prev.filter(m => !m.isTyping), botMessage]);
 
     } catch (error) {
@@ -175,7 +209,23 @@ export default function ChatWidget(): JSX.Element {
           <div className={styles.messagesArea}>
             {messages.map((msg, index) => (
               <div key={index} className={`${styles.message} ${styles[msg.sender]}`}>
-                {msg.isTyping ? <div className={styles.typingIndicator}><span></span><span></span><span></span></div> : msg.text}
+                {msg.isTyping ? (
+                  <div className={styles.typingIndicator}><span></span><span></span><span></span></div>
+                ) : (
+                  <>
+                    {msg.text}
+                    {msg.attachments && msg.attachments.length > 0 && (
+                      <div className={styles.attachmentsList}>
+                        {msg.attachments.map((att, i) => (
+                          <div key={i} className={styles.attachmentItem} title={att.content}>
+                            <span className={styles.attachmentIcon}>📎</span>
+                            <span className={styles.attachmentName}>{att.filename}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
             ))}
             <div ref={messagesEndRef} />
@@ -183,19 +233,37 @@ export default function ChatWidget(): JSX.Element {
 
           {/* Input Form */}
           <form onSubmit={handleSubmit} className={styles.inputForm}>
-            <textarea
-              ref={inputRef}
-              rows={1}
-              className={styles.inputField}
-              placeholder="Ask me anything..."
-              value={input}
-              onInput={handleInputChange} // Use onInput for textarea
-              onKeyDown={handleKeyDown} // Add onKeyDown handler
-              aria-label="Chat input"
-            ></textarea>
-            <button type="submit" className={styles.sendButton} aria-label="Send message">
-              <SendIcon />
-            </button>
+            {selectedContext && (
+              <div className={styles.inputContext}>
+                <div className={styles.inputContextText} title={selectedContext}>
+                  <span style={{ marginRight: '6px' }}>📎</span>
+                  {selectedContext}
+                </div>
+                <button 
+                  type="button" 
+                  className={styles.removeContextButton}
+                  onClick={() => setSelectedContext(null)}
+                  aria-label="Remove context"
+                >
+                  &times;
+                </button>
+              </div>
+            )}
+            <div className={styles.inputContainer}>
+              <textarea
+                ref={inputRef}
+                rows={1}
+                className={styles.inputField}
+                placeholder="Ask me anything..."
+                value={input}
+                onInput={handleInputChange} // Use onInput for textarea
+                onKeyDown={handleKeyDown} // Add onKeyDown handler
+                aria-label="Chat input"
+              ></textarea>
+              <button type="submit" className={styles.sendButton} aria-label="Send message">
+                <SendIcon />
+              </button>
+            </div>
           </form>
         </div>
       )}

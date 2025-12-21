@@ -49,13 +49,14 @@ async def ingest_local(background_tasks: BackgroundTasks):
 async def chat(request: ChatRequest):
     try:
         print(f"Received chat request: query='{request.query}', context='{request.context}'")
-        answer = rag_service.generate_answer(
+        response_data = rag_service.generate_answer(
             request.query,
             request.context,
             request.software_background,
             request.hardware_background
         )
-        return {"answer": answer}
+        # response_data is now a dict: {"answer": "...", "attachments": [...]}
+        return response_data
     except Exception as e:
         import traceback
         print(traceback.format_exc())
