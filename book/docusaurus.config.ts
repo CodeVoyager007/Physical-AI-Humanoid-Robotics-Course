@@ -26,6 +26,10 @@ const config: Config = {
     locales: ['en'],
   },
 
+  customFields: {
+    translateApiUrl: process.env.DOCUSAURUS_TRANSLATE_API_URL,
+  },
+
   presets: [
     [
       'classic',

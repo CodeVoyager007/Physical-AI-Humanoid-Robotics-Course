@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './ChapterToolbar.module.css';
 
 const ChapterToolbar: React.FC = () => {
+  const { siteConfig } = useDocusaurusContext();
   const [isLoading, setIsLoading] = useState(false);
   const [personalizedContent, setPersonalizedContent] = useState<string | null>(null);
   const [isTranslated, setIsTranslated] = useState(false);
@@ -31,7 +33,7 @@ const ChapterToolbar: React.FC = () => {
     }
   }, [window.location.pathname]); // Dependency on pathname for page changes
 
-const API_BASE_URL = process.env.DOCUSAURUS_TRANSLATE_API_URL || 'http://localhost:8000';
+  const API_BASE_URL = (siteConfig.customFields?.translateApiUrl as string) || 'http://localhost:8000';
 
   const handlePersonalize = async () => {
     setIsLoading(true);
