@@ -1,10 +1,10 @@
-import google.generativeai as genai
+from genai import Client
 from settings import settings
 
 class TranslationSkill:
     def __init__(self):
-        genai.configure(api_key=settings.GEMINI_API_KEY)
-        self.model = genai.GenerativeModel(settings.CHAT_MODEL)
+        self.client = Client(api_key=settings.GEMINI_API_KEY)
+        self.model_id = settings.CHAT_MODEL
 
     def translate_to_urdu(self, text: str) -> str:
         system_prompt = (
@@ -14,7 +14,10 @@ class TranslationSkill:
             "IMPORTANT: Provide ONLY the plain text translation, without any Markdown formatting (e.g., bold, italics, headers) or HTML tags."
         )
         
-        response = self.model.generate_content([system_prompt, text])
+        response = self.client.models.generate_content(
+            model=self.model_id,
+            contents=[system_prompt, text]
+        )
         return response.text
 
 if __name__ == '__main__':

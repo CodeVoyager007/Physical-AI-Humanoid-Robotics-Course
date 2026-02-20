@@ -1,10 +1,10 @@
-import google.generativeai as genai
+from genai import Client
 from settings import settings
 
 class PersonalizationSkill:
     def __init__(self):
-        genai.configure(api_key=settings.GEMINI_API_KEY)
-        self.model = genai.GenerativeModel(settings.CHAT_MODEL)
+        self.client = Client(api_key=settings.GEMINI_API_KEY)
+        self.model_id = settings.CHAT_MODEL
 
     def personalize_content(self, text: str, software_background: str, hardware_background: str) -> str:
         system_prompt = (
@@ -14,9 +14,10 @@ class PersonalizationSkill:
             f"Maintain the core technical accuracy and meaning."
         )
         
-        # Consider using a more robust chat approach for better control over system instructions
-        # For simplicity, directly using generate_content with a combined prompt
-        response = self.model.generate_content([system_prompt, text])
+        response = self.client.models.generate_content(
+            model=self.model_id,
+            contents=[system_prompt, text]
+        )
         return response.text
 
 if __name__ == '__main__':
